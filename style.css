@@ -54,3 +54,8 @@ body {
   display: flex;
   flex-direction: row;
 }
+.svg-el {
+  width: 420px;
+  height: 581px;
+  background-image: url(./assets/human.svg);
+}

@@ -1,10 +1,12 @@
 const body = document.querySelector('body');
 const scaffold = document.createElement('div');
 scaffold.className = 'scaffold-container';
+const svg = document.createElement('div');
+svg.className = 'svg-el';
 const hero = document.createElement('h1');
 hero.className = 'hero-el';
 hero.innerText = 'Hangman game'.toUpperCase();
-scaffold.append(hero);
+scaffold.append(svg, hero);
 const main = document.createElement('div');
 main.className = 'main-container';
 const answer = document.createElement('h2');
