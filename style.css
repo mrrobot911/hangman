@@ -49,8 +49,8 @@ input {
   border: 0;
 }
 body {
-  font-family: "Libre Baskerville", serif;
-  font-family: "Lemon", serif;
-}
-.paragraf {
+  /* font-family: "Libre Baskerville", serif; */
+  font-family: 'Lemon', serif;
+  display: flex;
+  flex-direction: row;
 }
