@@ -1,6 +1,26 @@
-// const SVG_EL = [1, 2, 3, 4, 5, 6];
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
-
+const QUESTION_DATA = [
+  ['What is a collection of key-value pairs in JavaScript called?', 'object'],
+  ['What do you use to remove the first element from an array in JavaScript?', 'shift'],
+  ['What is the process of combining two or more arrays in JavaScript called?', 'concat'],
+  ['What does the "DOM" stand for in web development?', 'document'],
+  ['What is the purpose of "this" keyword in JavaScript?', 'referring'],
+  ['What is the purpose of using "typeof" in JavaScript?', 'checking'],
+  ['What is the function of a closure in JavaScript?', 'enclosing'],
+  ['When would you use the "this" keyword in JavaScript?', 'context'],
+  ['What is the difference between "==" and "===" operators in JavaScript?', 'equality'],
+  ['What is the difference between "null" and "undefined" in JavaScript?', 'existence'],
+  ['What does the term "scope" refer to in JavaScript?', 'visibility'],
+  ['What is the purpose of using "constructor" in JavaScript classes?', 'initialize'],
+  ['How do you load external modules in JavaScript?', 'import'],
+  ['How do you access the last element of an array in JavaScript?', 'indexing'],
+  ['What does the term "hoisting" mean in JavaScript?', 'lifted'],
+  ['How do you handle event bubbling in JavaScript?', 'propagate'],
+];
+let countAnsw = 0;
+const allLetterrs = [];
+const answLetterrs = [];
+const [quest, answ] = QUESTION_DATA[Math.floor(Math.random() * QUESTION_DATA.length)];
 const body = document.querySelector('body');
 const scaffold = document.createElement('div');
 scaffold.className = 'scaffold-container';
@@ -26,23 +46,77 @@ fill="#909090"/>
 
 const hero = document.createElement('h1');
 hero.className = 'hero-el';
-hero.innerText = 'Hangman game'.toUpperCase();
+hero.textContent = 'Hangman game'.toUpperCase();
 scaffold.append(svg, hero);
 const main = document.createElement('div');
 main.className = 'main-container';
 const answer = document.createElement('h2');
 answer.className = 'answer-el';
+answer.textContent = '_'.repeat(answ.length);
 const question = document.createElement('p');
 question.className = 'question-el';
+question.textContent = quest;
 const guesses = document.createElement('p');
 guesses.className = 'guesses-el';
+guesses.innerHTML = `Incorrect guesses: <span class="answ-count">${countAnsw}/6</span>`;
 const keyboard = document.createElement('div');
 keyboard.className = 'key-container';
 ALPHABET.forEach((el) => {
-  const button = document.createElement('button');
-  button.className = 'letter-btn';
-  button.innerHTML = el;
-  keyboard.append(button);
+  const input = document.createElement('input');
+  input.type = 'checkbox';
+  input.id = `myinput-${el}`;
+  input.className = 'letter-input';
+  input.value = el;
+  const label = document.createElement('label');
+  label.textContent = el;
+  label.setAttribute('for', `myinput-${el}`);
+  label.className = 'letter-btn';
+  keyboard.append(input, label);
 });
 main.append(answer, question, guesses, keyboard);
 body.append(scaffold, main);
+
+function changeSvg() {
+  document
+    .querySelectorAll(`.element${countAnsw}`)
+    .forEach((el) => el.setAttribute('visibility', 'visible'));
+}
+
+const inputsArray = document.querySelectorAll('.letter-input');
+document.addEventListener('keydown', (e) => {
+  inputsArray.forEach((el) => {
+    if (e.key === el.value && countAnsw < 6) {
+      el.click();
+    }
+  });
+});
+
+keyboard.addEventListener('click', (e) => {
+  if (e.target.className === 'letter-input') {
+    e.target.setAttribute('disabled', 'true');
+    if (!allLetterrs.includes(e.target.value)) {
+      if (!answ.split('').includes(e.target.value)) {
+        countAnsw += 1;
+      } else {
+        answLetterrs.push(e.target.value);
+        answer.textContent = answ
+          .split('')
+          .map((el) => {
+            if (answLetterrs.includes(el)) {
+              return el;
+            }
+            return '_';
+          })
+          .join('');
+      }
+      allLetterrs.push(e.target.value);
+      guesses.innerHTML = `Incorrect guesses: <span class="answ-count">${countAnsw}/6</span>`;
+      changeSvg();
+    }
+  }
+  if (countAnsw === 6) {
+    inputsArray.forEach((el) => {
+      el.setAttribute('disabled', 'true');
+    });
+  }
+});

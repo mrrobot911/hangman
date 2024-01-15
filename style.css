@@ -47,19 +47,34 @@ input {
   border: 0;
 }
 body {
-  /* font-family: "Libre Baskerville", serif; */
   font-family: 'Lemon', serif;
   display: flex;
   flex-direction: row;
 }
+.main-container {
+  font-family: 'Libre Baskerville', serif;
+}
 .key-container {
+  font-family: 'Lemon', serif;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
+.letter-input {
+  display: none;
+}
 .letter-btn {
+  font-size: 20px;
+  text-align: center;
   width: 50px;
   height: 30px;
   border: 1px solid blue;
   border-radius: 5px;
+}
+.answ-count {
+  color: red;
+}
+.letter-input:checked + .letter-btn {
+  background-color: blue;
+  color: azure;
 }
