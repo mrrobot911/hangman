@@ -1,3 +1,4 @@
+const PATH_ARRAY = [1, 2, 3, 4, 5, 6];
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
 const QUESTION_DATA = [
   ['What is a collection of key-value pairs in JavaScript called?', 'object'],
@@ -19,9 +20,9 @@ const QUESTION_DATA = [
 ];
 
 let countAnsw = 0;
-const allLetterrs = [];
-const answLetterrs = [];
-const [quest, answ] = QUESTION_DATA[Math.floor(Math.random() * QUESTION_DATA.length)];
+let allLetterrs = [];
+let answLetterrs = [];
+let [quest, answ] = QUESTION_DATA[Math.floor(Math.random() * QUESTION_DATA.length)];
 let answTemp = '_'.repeat(answ.length).split('');
 
 const body = document.querySelector('body');
@@ -79,10 +80,18 @@ ALPHABET.forEach((el) => {
 main.append(answer, question, guesses, keyboard);
 body.append(scaffold, main);
 
-function changeSvg() {
-  document
-    .querySelectorAll(`.element${countAnsw}`)
-    .forEach((el) => el.setAttribute('visibility', 'visible'));
+function changeSvg(props) {
+  if (props) {
+    document
+      .querySelectorAll(`.element${countAnsw}`)
+      .forEach((el) => el.setAttribute('visibility', 'visible'));
+  } else {
+    PATH_ARRAY.forEach((el) => {
+      document
+        .querySelectorAll(`.element${el}`)
+        .forEach((p) => p.setAttribute('visibility', 'hidden'));
+    });
+  }
 }
 
 const inputsArray = document.querySelectorAll('.letter-input');
@@ -112,12 +121,45 @@ keyboard.addEventListener('click', (e) => {
       }
       allLetterrs.push(e.target.value);
       guesses.innerHTML = `Incorrect guesses: <span class="answ-count">${countAnsw}/6</span>`;
-      changeSvg();
+      changeSvg(true);
     }
   }
   if (countAnsw === 6 || !answTemp.includes('_')) {
     inputsArray.forEach((el) => {
       el.setAttribute('disabled', 'true');
     });
+    const modal = document.createElement('div');
+    modal.className = 'modal-container';
+    const wrapperModal = document.createElement('div');
+    wrapperModal.className = 'modal-wrapper';
+    const outcome = document.createElement('p');
+    outcome.className = 'modal-outcome';
+    outcome.textContent = countAnsw === 6 ? 'You loose' : 'You win';
+    const word = document.createElement('p');
+    word.className = 'modal-answer';
+    word.innerHTML = `Answer is: <span class="answer-span">${answ}</span>`;
+    const restart = document.createElement('button');
+    restart.className = 'modal-btn';
+    restart.textContent = 'restart game';
+    restart.addEventListener('click', () => {
+      changeSvg(false);
+      countAnsw = 0;
+      allLetterrs = [];
+      answLetterrs = [];
+      [quest, answ] = QUESTION_DATA[Math.floor(Math.random() * QUESTION_DATA.length)];
+      answTemp = '_'.repeat(answ.length).split('');
+      inputsArray.forEach((el) => {
+        el.removeAttribute('disabled');
+        // eslint-disable-next-line no-param-reassign
+        el.checked = false;
+      });
+      guesses.innerHTML = `Incorrect guesses: <span class="answ-count">${countAnsw}/6</span>`;
+      answer.textContent = answTemp.join('');
+      question.textContent = quest;
+      body.removeChild(modal);
+      body.removeChild(wrapperModal);
+    });
+    modal.append(outcome, word, restart);
+    body.append(modal, wrapperModal);
   }
 });
