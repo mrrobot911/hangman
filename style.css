@@ -134,6 +134,7 @@ body {
   background-color: azure;
   padding: 10px 15px;
   border-radius: 15px;
+  transition: all 0.5s ease-in-out;
 }
 @media (hover: hover) {
   .letter-btn:hover {
@@ -142,6 +143,12 @@ body {
   }
   .letter-btn:active {
     background-color: aqua;
+    color: red;
+  }
+  .modal-btn:hover {
+    background-color: blanchedalmond;
+  }
+  .modal-btn:active {
     color: red;
   }
 }
