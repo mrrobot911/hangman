@@ -26,11 +26,11 @@ let [quest, answ] = QUESTION_DATA[Math.floor(Math.random() * QUESTION_DATA.lengt
 console.log(`answer is: ${answ}`);
 let answTemp = '_'.repeat(answ.length).split('');
 
-const body = document.querySelector('body');
-const scaffold = document.createElement('div');
+const body = document.querySelector('.body-container');
+const scaffold = document.createElement('section');
 scaffold.className = 'scaffold-container';
 const svg = document.createElement('span');
-svg.innerHTML = `<svg width="420" height="581" viewBox="0 0 420 581" fill="none" xmlns="http://www.w3.org/2000/svg">
+svg.innerHTML = `<svg class="svg-el" width="420" height="581" viewBox="0 0 420 581" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect x="176.337" y="34.6662" width="39" height="199.598" transform="rotate(45 176.337 34.6662)" fill="black" stroke="#FFFEFE" stroke-width="3"/>
 <rect x="34.5" y="1.5" width="39" height="578" rx="3.5" fill="black" stroke="#FFFEFE" stroke-width="3"/>
 <rect x="351.5" y="34.5" width="39" height="350" rx="3.5" transform="rotate(90 351.5 34.5)" fill="black" stroke="#FFFEFE" stroke-width="3"/>
@@ -53,7 +53,7 @@ const hero = document.createElement('h1');
 hero.className = 'hero-el';
 hero.textContent = 'Hangman game'.toUpperCase();
 scaffold.append(svg, hero);
-const main = document.createElement('div');
+const main = document.createElement('main');
 main.className = 'main-container';
 const answer = document.createElement('h2');
 answer.className = 'answer-el';
@@ -64,7 +64,7 @@ question.textContent = quest;
 const guesses = document.createElement('p');
 guesses.className = 'guesses-el';
 guesses.innerHTML = `Incorrect guesses: <span class="answ-count">${countAnsw}/6</span>`;
-const keyboard = document.createElement('div');
+const keyboard = document.createElement('section');
 keyboard.className = 'key-container';
 ALPHABET.forEach((el) => {
   const input = document.createElement('input');

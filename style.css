@@ -46,7 +46,7 @@ input {
   padding: 0;
   border: 0;
 }
-body {
+.body-container {
   max-width: 1400px;
   margin: 50px auto;
   font-family: 'Lemon', serif;
@@ -153,7 +153,7 @@ body {
   }
 }
 @media (max-width: 768px) {
-  body {
+  .body-container {
     flex-direction: column;
     margin: 10px auto;
     gap: 10px;
@@ -164,15 +164,15 @@ body {
   .question-el {
     padding: 15px 0px;
   }
-  svg {
+  .svg-el {
     height: 300px;
   }
 }
 @media (max-width: 490px) {
-  body {
+  .body-container {
     padding: 10px 10px;
   }
-  svg {
+  .svg-el {
     height: 250px;
   }
 }
