@@ -17,10 +17,13 @@ const QUESTION_DATA = [
   ['What does the term "hoisting" mean in JavaScript?', 'lifted'],
   ['How do you handle event bubbling in JavaScript?', 'propagate'],
 ];
+
 let countAnsw = 0;
 const allLetterrs = [];
 const answLetterrs = [];
 const [quest, answ] = QUESTION_DATA[Math.floor(Math.random() * QUESTION_DATA.length)];
+let answTemp = '_'.repeat(answ.length).split('');
+
 const body = document.querySelector('body');
 const scaffold = document.createElement('div');
 scaffold.className = 'scaffold-container';
@@ -52,7 +55,7 @@ const main = document.createElement('div');
 main.className = 'main-container';
 const answer = document.createElement('h2');
 answer.className = 'answer-el';
-answer.textContent = '_'.repeat(answ.length);
+answer.textContent = answTemp.join('');
 const question = document.createElement('p');
 question.className = 'question-el';
 question.textContent = quest;
@@ -99,22 +102,20 @@ keyboard.addEventListener('click', (e) => {
         countAnsw += 1;
       } else {
         answLetterrs.push(e.target.value);
-        answer.textContent = answ
-          .split('')
-          .map((el) => {
-            if (answLetterrs.includes(el)) {
-              return el;
-            }
-            return '_';
-          })
-          .join('');
+        answTemp = answ.split('').map((el) => {
+          if (answLetterrs.includes(el)) {
+            return el;
+          }
+          return '_';
+        });
+        answer.textContent = answTemp.join('');
       }
       allLetterrs.push(e.target.value);
       guesses.innerHTML = `Incorrect guesses: <span class="answ-count">${countAnsw}/6</span>`;
       changeSvg();
     }
   }
-  if (countAnsw === 6) {
+  if (countAnsw === 6 || !answTemp.includes('_')) {
     inputsArray.forEach((el) => {
       el.setAttribute('disabled', 'true');
     });
