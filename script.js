@@ -23,6 +23,7 @@ let countAnsw = 0;
 let allLetterrs = [];
 let answLetterrs = [];
 let [quest, answ] = QUESTION_DATA[Math.floor(Math.random() * QUESTION_DATA.length)];
+console.log(`answer is: ${answ}`);
 let answTemp = '_'.repeat(answ.length).split('');
 
 const body = document.querySelector('body');
@@ -147,6 +148,7 @@ keyboard.addEventListener('click', (e) => {
       allLetterrs = [];
       answLetterrs = [];
       [quest, answ] = QUESTION_DATA[Math.floor(Math.random() * QUESTION_DATA.length)];
+      console.log(`answer is: ${answ}`);
       answTemp = '_'.repeat(answ.length).split('');
       inputsArray.forEach((el) => {
         el.removeAttribute('disabled');
