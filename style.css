@@ -147,5 +147,24 @@ body {
 @media (max-width: 768px) {
   body {
     flex-direction: column;
+    margin: 10px auto;
+    gap: 10px;
+  }
+  .hero-el {
+    font-size: 20px;
+  }
+  .question-el {
+    padding: 15px 0px;
+  }
+  svg {
+    height: 300px;
+  }
+}
+@media (max-width: 490px) {
+  body {
+    padding: 10px 10px;
+  }
+  svg {
+    height: 250px;
   }
 }
