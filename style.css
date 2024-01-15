@@ -47,18 +47,40 @@ input {
   border: 0;
 }
 body {
+  max-width: 1400px;
+  margin: 50px auto;
   font-family: 'Lemon', serif;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  gap: 40px;
+}
+.scaffold-container {
+  min-width: 300px;
 }
 .main-container {
   font-family: 'Libre Baskerville', serif;
+  max-width: 600px;
+}
+.hero-el {
+  text-align: center;
+  margin-top: 20px;
+}
+.answer-el {
+  font-size: 40px;
+  letter-spacing: 3px;
+}
+.question-el {
+  padding: 30px 0px;
 }
 .key-container {
   font-family: 'Lemon', serif;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: 30px;
 }
 .letter-input {
   display: none;
@@ -111,4 +133,19 @@ body {
   background-color: azure;
   padding: 10px 15px;
   border-radius: 15px;
+}
+@media (hover: hover) {
+  .letter-btn:hover {
+    cursor: pointer;
+    background-color: aquamarine;
+  }
+  .letter-btn:active {
+    background-color: aqua;
+    color: red;
+  }
+}
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
 }
